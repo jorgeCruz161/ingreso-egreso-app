@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -13,8 +13,12 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth'
 
 //modulos
 import { AppRountingModule } from './app-routing.module';
+import  { ReactiveFormsModule } from '@angular/forms';
 
-import  { ReactiveFormsModule } from '@angular/forms'
+//NGRX
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
@@ -24,6 +28,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const config = {
   apiKey: "AIzaSyCQyklU9mmyTKtkz17POSbJpibH3kTpfuw",
@@ -47,8 +52,7 @@ const config = {
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
-    
+    SidebarComponent    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,12 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot( appReducers ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: isDevMode()
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

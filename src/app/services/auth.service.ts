@@ -7,6 +7,10 @@ import { User } from "../models/user.model";
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import 'firebase/firestore';
+import { AppState } from '../app.reducer';
+import { Store } from '@ngrx/store';
+import * as authActions from '../auth/auth.actions';
+import { Subscription, UnsubscriptionError } from 'rxjs';
 
 
 @Injectable({
@@ -14,17 +18,37 @@ import 'firebase/firestore';
 })
 export class AuthService {
 
+  userSubscription: Subscription
+
   constructor(
     public auth: AngularFireAuth,
     private router: Router,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private store: Store<AppState>
   ) { }
 
   initAuthListener(){
       this.auth.authState.subscribe( fuser => {
-        console.log(fuser);
-        console.log( fuser?.uid );
-        console.log( fuser?.email );
+        // console.log( fuser?.uid );
+        if( fuser ){
+          //existe
+          this.userSubscription = this.firestore.doc(`${fuser.uid}/usuario`).valueChanges().subscribe(
+            (firestoreUser: any) => {
+
+              console.log({ firestoreUser } )
+          
+              const user = User.fromFirebase( firestoreUser )
+
+              this.store.dispatch( authActions.setUser({ user: user }) )
+            })
+       
+          
+        }else{
+          //no existe
+          this.userSubscription.unsubscribe();
+          this.store.dispatch(authActions.unSetUser() );
+        }
+ 
 
       } )
   }
