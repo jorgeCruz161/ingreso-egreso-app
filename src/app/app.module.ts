@@ -5,8 +5,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
+//Angular Fire
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'
+
 //modulos
 import { AppRountingModule } from './app-routing.module';
+
+import  { ReactiveFormsModule } from '@angular/forms'
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
@@ -16,6 +24,16 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+const config = {
+  apiKey: "AIzaSyCQyklU9mmyTKtkz17POSbJpibH3kTpfuw",
+  authDomain: "ingreso-egreso-angular-63eae.firebaseapp.com",
+  projectId: "ingreso-egreso-angular-63eae",
+  storageBucket: "ingreso-egreso-angular-63eae.appspot.com",
+  messagingSenderId: "918454362946",
+  appId: "1:918454362946:web:7e94c342fdf104380cdedb",
+  measurementId: "G-QHHBY5EG68"
+}
 
 
 @NgModule({
@@ -30,11 +48,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     NavbarComponent,
     SidebarComponent
+    
   ],
   imports: [
     BrowserModule,
     NgbModule, 
-    AppRountingModule
+    AppRountingModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
