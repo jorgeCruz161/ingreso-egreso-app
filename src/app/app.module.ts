@@ -18,7 +18,11 @@ import  { ReactiveFormsModule } from '@angular/forms';
 //NGRX
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './app.reducer';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+//Chart
+
+import { NgChartsModule } from 'ng2-charts';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IngresoEgresoComponent } from './ingreso-egreso/ingreso-egreso.component';
@@ -28,6 +32,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrdenIngresoPipe } from './pipes/orden-ingreso.pipe';
 
 
 const config = {
@@ -52,7 +57,8 @@ const config = {
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent    
+    SidebarComponent,
+    OrdenIngresoPipe    
   ],
   imports: [
     BrowserModule,
@@ -67,7 +73,8 @@ const config = {
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: isDevMode()
-    })
+    }),
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
