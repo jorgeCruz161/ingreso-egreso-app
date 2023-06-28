@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.uiSubscriptions = this.store.select('ui').subscribe( ui => {
       this.loading = ui.isLoading;
-      console.log('cargando subs' )
     } ) 
   }
 
